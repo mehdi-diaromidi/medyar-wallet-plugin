@@ -1,0 +1,674 @@
+/* ============================================
+   Bank Cards Section Styles - Mobile First
+   Note: CSS Variables are defined in assets/css/variable.css
+   Note: Reset and base styles are in assets/css/global.css
+   ============================================ */
+
+/* ============================================
+   BASE STYLES - MOBILE (320px+)
+   ============================================ */
+
+/* .page-container styles are now in global.css */
+
+.bank-cards-section {
+    /* padding: var(--spacing-xl); */
+}
+.bank-cards-container .section-title {
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: var(--ayarfar-panel-fs-20);
+    font-weight: var(--ayarfar-panel-fw-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+    text-align: right;
+}
+
+.bank-cards-wrapper {
+    margin-top: 0;
+}
+
+.section-title-header-wrapper-bank-cards.section-title-header-ws {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-title-header-wrapper-bank-cards .section-title-rules-wrapper-ws {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.bank-card-rules-ws {
+    margin-top: var(--spacing-xl);
+}
+
+.bank-card-rules-ws.deposit-method-rules-ws--visible {
+    display: block;
+}
+
+.bank-cards-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.bank-cards-title {
+    font-size: var(--ayarfar-panel-fs-16);
+    font-weight: var(--ayarfar-panel-fw-bold);
+    color: var(--color-text-primary);
+    line-height: 1.4;
+    flex: 1;
+    min-width: 0;
+}
+
+.add-card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    font-size: var(--ayarfar-panel-fs-13);
+    font-weight: var(--ayarfar-panel-fw-medium);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-family: inherit;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-height: 36px;
+    box-sizing: border-box;
+}
+
+.add-card-btn:hover {
+    background-color: var(--color-bg-light);
+    border-color: var(--color-primary-blue);
+    color: var(--color-primary-blue);
+}
+
+.add-card-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(28, 36, 116, 0.08);
+}
+
+.add-card-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    flex-shrink: 0;
+}
+
+.bank-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.bank-card-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-card);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    gap: var(--spacing-md);
+}
+
+.bank-card-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background-color: transparent;
+    transition: var(--transition-fast);
+}
+
+.bank-card-item:hover {
+    border-color: var(--color-secondary-gold);
+    box-shadow: var(--shadow-card-hover);
+    /* transform: translateY(-1px); */
+}
+
+.bank-card-item:hover::before {
+    background-color: var(--color-secondary-gold);
+}
+
+.bank-card-item.selected {
+    border-color: var(--color-secondary-gold);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 1px rgba(180, 150, 89, 0.1);
+}
+
+.bank-card-item.selected::before {
+    background-color: var(--color-secondary-gold);
+}
+
+.bank-card-item:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-input-focus);
+}
+
+.bank-card-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+    min-width: 0;
+}
+
+.bank-card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: var(--color-bg-lighter); */
+    border-radius: var(--radius-default);
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.bank-card-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.bank-logo-img {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 4px;
+}
+
+.melli-iran-bank {
+    background-image: url('../../images/banks/melli-iran-bank.webp');
+}
+
+.sepah-bank {
+    background-image: url('../../images/banks/sepah-bank.webp');
+}
+
+.saderat-bank {
+    background-image: url('../../images/banks/saderat-bank.webp');
+}
+
+.sanat-va-madan-bank {
+    background-image: url('../../images/banks/sanat-va-madan-bank.webp');
+}
+
+.keshavarzi-bank {
+    background-image: url('../../images/banks/keshavarzi-bank.webp');
+}
+
+.maskan-bank {
+    background-image: url('../../images/banks/maskan-bank.webp');
+}
+
+.post-bank-iran-bank {
+    background-image: url('../../images/banks/post-bank-iran-bank.webp');
+}
+.saman-bank {
+    background-image: url('../../images/banks/saman-bank.webp');
+}
+
+.saman-bank {
+    background-image: url('../../images/banks/saman-bank.webp');
+}
+
+.tosee-taavon-bank {
+    background-image: url('../../images/banks/tosee-taavon-bank.webp');
+}
+.eghtesad-novin-bank {
+    background-image: url('../../images/banks/eghtesad-novin-bank.webp');
+    max-width: 34px;
+    max-height: 34px;
+}
+.parsian-bank {
+    background-image: url('../../images/banks/parsian-bank.webp');
+}
+.pasargad-bank {
+    background-image: url('../../images/banks/pasargad-bank.webp');
+}
+.ghavamin-bank {
+    background-image: url('../../images/banks/ghavamin-bank.webp');
+}
+.karafarin-bank {
+    background-image: url('../../images/banks/karafarin-bank.webp');
+}
+.sina-bank {
+    background-image: url('../../images/banks/sina-bank.webp');
+}
+.sarmayeh-bank {
+    background-image: url('../../images/banks/sarmayeh-bank.webp');
+}
+.shahr-bank {
+    background-image: url('../../images/banks/shahr-bank.webp');
+}
+.day-bank {
+    background-image: url('../../images/banks/day-bank.webp');
+}
+.tejarat-bank {
+    background-image: url('../../images/banks/tejarat-bank.webp');
+}
+.refah-bank {
+    background-image: url('../../images/banks/refah-bank.webp');
+}
+.noor-credit-institution {
+    background-image: url('../../images/banks/noor-credit-institution.webp');
+}
+.melal-credit-institution {
+    background-image: url('../../images/banks/melal-credit-institution.webp');
+}
+.mehr-iran-qarzolhasaneh-bank {
+    background-image: url('../../images/banks/mehr-iran-qarzolhasaneh-bank.webp');
+}
+.gardeshgari-bank {
+    background-image: url('../../images/banks/gardeshgari-bank.webp');
+}
+.resalat-qarzolhasaneh-bank {
+    background-image: url('../../images/banks/resalat-qarzolhasaneh-bank.webp');
+}
+.iran-zamin-bank {
+    background-image: url('../../images/banks/iran-zamin-bank.webp');
+}
+.kosar-credit-institution {
+    background-image: url('../../images/banks/kosar-credit-institution.webp');
+}
+.khavamianeh-bank {
+    background-image: url('../../images/banks/khavamianeh-bank.webp');
+}
+.tosee-saderat-iran-bank {
+    background-image: url('../../images/banks/tosee-saderat-iran-bank.webp');
+}
+
+.bank-logo-default-ws {
+    background-image: url('../../../assets/icons/bankscards.svg');
+    background-image: url('../../../assets/icons/bankscards.svg');
+    width: 80% !important;
+    height: 80% !important;
+    opacity: 0.9;
+}
+
+.bank-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    min-width: 0;
+    flex: 1;
+}
+
+.bank-card-number-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    direction: rtl;
+    flex-direction: row;
+    min-height: 24px;
+}
+
+.bank-card-selected-badge {
+    display: none;
+    /* Hidden on mobile */
+    padding: 4px var(--spacing-sm);
+    background-color: var(--color-status-success-bg);
+    color: var(--color-status-success);
+    font-size: var(--ayarfar-panel-fs-11);
+    font-weight: var(--ayarfar-panel-fw-semibold);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.bank-card-number {
+    font-size: var(--ayarfar-panel-fs-13);
+    font-weight: var(--ayarfar-panel-fw-semibold);
+    color: var(--color-text-primary);
+    font-family: 'iranyekan', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Arial', sans-serif;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    direction: ltr;
+    text-align: right;
+    word-break: break-all;
+}
+
+.bank-card-name {
+    font-size: var(--ayarfar-panel-fs-11);
+    font-weight: var(--ayarfar-panel-fw-regular);
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+.bank-card-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.bank-card-remove-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: transparent;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    color: var(--color-status-error);
+    font-size: var(--ayarfar-panel-fs-11);
+    font-weight: var(--ayarfar-panel-fw-medium);
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+    outline: none;
+    min-height: 36px;
+    min-width: 60px;
+    box-sizing: border-box;
+}
+
+.bank-card-remove-btn:hover {
+    background-color: var(--color-status-error-bg);
+    border-color: var(--color-status-error);
+}
+
+.bank-card-remove-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+.bank-card-remove-btn:active {
+    transform: scale(0.98);
+}
+
+.no-cards-message {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-muted);
+    font-size: var(--ayarfar-panel-fs-13);
+    font-weight: var(--ayarfar-panel-fw-regular);
+    line-height: 1.5;
+}
+
+/* Modal Styles - Mobile */
+/* Modal styles are now in global.css */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.input-label {
+    font-size: var(--ayarfar-panel-fs-13);
+    font-weight: var(--ayarfar-panel-fw-medium);
+    color: var(--color-text-secondary);
+    text-align: right;
+}
+
+.card-input {
+    width: 100%;
+    padding: 12px var(--spacing-md);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    font-size: var(--ayarfar-panel-fs-15);
+    font-family: inherit;
+    direction: ltr;
+    text-align: left;
+    transition: var(--transition-fast);
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+    min-height: 44px;
+    /* Touch target */
+    box-sizing: border-box;
+}
+
+.card-input:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: var(--shadow-input-focus);
+}
+
+.card-input::placeholder {
+    color: var(--color-text-muted);
+    text-align: left;
+    opacity: 1;
+}
+
+.error-message {
+    display: block;
+    margin-top: 6px;
+    font-size: var(--ayarfar-panel-fs-11);
+    color: var(--color-status-error);
+    font-weight: var(--ayarfar-panel-fw-medium);
+    min-height: 18px;
+}
+
+.error-message:empty {
+    display: none;
+}
+
+/* Loading Indicators */
+.button-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.button-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   TABLET ENHANCEMENT (579px+)
+   ============================================ */
+
+@media (min-width: 579px) {
+    .bank-cards-section {
+        display: flex;
+    }
+
+    .bank-cards-container {
+        flex: 1 1 50%;
+    }
+
+    .bank-cards-section {
+        background-color: var(--color-bg-card);
+        border-radius: var(--radius-lg);
+    }
+
+    /* .page-container styles are now in global.css */
+
+    .bank-cards-section {
+        /* padding: var(--spacing-2xl); */
+    }
+
+    .section-title {
+        font-size: var(--ayarfar-panel-fs-h3);
+    }
+
+    .bank-cards-title {
+        font-size: var(--ayarfar-panel-fs-17);
+    }
+
+    .add-card-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--ayarfar-panel-fs-14);
+    }
+
+    .add-card-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .bank-card-item {
+        padding: var(--spacing-lg);
+    }
+
+    .bank-card-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .bank-card-number {
+        font-size: var(--ayarfar-panel-fs-14);
+    }
+
+    .bank-card-name {
+        font-size: var(--ayarfar-panel-fs-12);
+    }
+
+    .bank-card-remove-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--ayarfar-panel-fs-12);
+    }
+
+    /* Show selected badge on tablet and desktop */
+    .bank-card-selected-badge {
+        display: inline-block;
+    }
+
+    /* Modal responsive styles are now in global.css */
+
+    .input-label {
+        font-size: var(--ayarfar-panel-fs-14);
+    }
+
+    .card-input {
+        padding: 13px var(--spacing-lg);
+        font-size: var(--ayarfar-panel-fs-15);
+    }
+
+    .error-message {
+        font-size: var(--ayarfar-panel-fs-12);
+    }
+}
+
+/* ============================================
+   DESKTOP ENHANCEMENT (1024px+)
+   ============================================ */
+
+@media (min-width: 1024px) {
+    /* .page-container styles are now in global.css */
+
+    .bank-cards-section {
+        /* padding: var(--spacing-3xl); */
+        width: 100%;
+        gap: var(--spacing-4xl);
+    }
+
+    .section-title {
+        font-size: var(--ayarfar-panel-fs-22);
+    }
+
+    .bank-cards-title {
+        font-size: var(--ayarfar-panel-fs-18);
+    }
+
+    .add-card-btn {
+        font-size: var(--ayarfar-panel-fs-14);
+    }
+
+    .add-card-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .bank-card-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .bank-card-number {
+        font-size: var(--ayarfar-panel-fs-16);
+    }
+
+    .bank-card-name {
+        font-size: var(--ayarfar-panel-fs-12);
+    }
+
+    .bank-card-remove-btn {
+        font-size: var(--ayarfar-panel-fs-12);
+    }
+
+    /* Modal responsive styles are now in global.css */
+
+    .card-input {
+        padding: 14px 18px;
+        font-size: var(--ayarfar-panel-fs-16);
+    }
+}
+
+/* ============================================
+   LARGE DESKTOP (1400px+)
+   ============================================ */
+
+@media (min-width: 1400px) {
+    /* .page-container styles are now in global.css */
+}
+
+@media (max-width: 345px) {
+    .bank-card-number {
+        font-size: var(--ayarfar-panel-fs-12);
+        letter-spacing: 0.5px;
+    }
+
+    .bank-card-item {
+        padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-sm);
+    }
+}
