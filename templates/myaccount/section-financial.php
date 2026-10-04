@@ -43,7 +43,6 @@ $has_cards = !empty($cards);
             <div class="mtw-composer__body" id="mtwComposerBody" <?php echo $has_cards ? 'hidden' : ''; ?>>
                 <div class="mtw-composer__stage">
                     <div class="mtw-live-card" id="mtwLiveCardPreview" aria-hidden="true">
-                        <div class="mtw-live-card__shine"></div>
                         <div class="mtw-live-card__top">
                             <div class="mtw-live-card__logo-wrap" id="mtwLiveBankLogo" aria-hidden="true">
                                 <div class="bank-logo-img bank-logo-default-ws" id="mtwLiveBankLogoImg"></div>

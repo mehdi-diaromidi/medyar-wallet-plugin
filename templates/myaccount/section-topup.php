@@ -19,13 +19,13 @@ $loading = MTW_PATH . 'assets/frontend/images/loading.svg';
         <p class="<?php echo esc_attr($prefix); ?>withdrawal-financial-error">
             <?php
             printf(
-                'برای شارژ کیف پول ابتدا یک کارت بانکی در <a href="%s">اطلاعات مالی</a> ثبت کنید.',
+                'برای شارژ کیف پول ابتدا یک کارت بانکی در <a href="%s">کارت‌های بانکی</a> ثبت کنید.',
                 esc_url(MTW_MyAccount_UI::section_url('financial'))
             );
             ?>
         </p>
     <?php else : ?>
-        <div class="<?php echo esc_attr($prefix); ?>withdrawal-field-wrap" style="margin-bottom:1rem;">
+        <div class="<?php echo esc_attr($prefix); ?>withdrawal-field-wrap">
             <label for="mtw_topup_card" class="<?php echo esc_attr($prefix); ?>withdrawal-field-label">کارت بانکی</label>
             <select id="mtw_topup_card" name="card_number">
                 <?php foreach ($cards as $num => $data) :
@@ -67,7 +67,7 @@ $loading = MTW_PATH . 'assets/frontend/images/loading.svg';
         </p>
 
         <button id="<?php echo esc_attr($prefix); ?>topup-submit" class="<?php echo esc_attr($prefix); ?>topup-submit sheyda_wallet_button" type="button">
-            <span class="button-text">افزایش موجودی کیف پول</span>
+            <span class="button-text">افزایش موجودی</span>
             <div class="button-loading"><?php echo file_exists($loading) ? file_get_contents($loading) : ''; ?></div>
         </button>
         <div class="<?php echo esc_attr($prefix); ?>topup-errors" role="alert" aria-live="assertive"></div>

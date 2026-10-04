@@ -144,7 +144,7 @@ $withdrawals = $tx_manager->get_user_transactions($user_id, array_merge($filter,
                     <p class="<?php echo esc_attr($prefix); ?>withdrawal-financial-error">
                         <?php
                         printf(
-                            'شما هیچ حساب بانکی‌ای ثبت نکرده‌اید. لطفاً یک حساب از بخش <a href="%s">اطلاعات مالی</a> اضافه کنید.',
+                            'شما هیچ حساب بانکی‌ای ثبت نکرده‌اید. لطفاً یک حساب از بخش <a href="%s">کارت‌های بانکی</a> اضافه کنید.',
                             esc_url(MTW_MyAccount_UI::section_url('financial'))
                         );
                         ?>

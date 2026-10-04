@@ -1,26 +1,27 @@
 /**
- * Medyar wallet skin — restyles Sheyda classnames into Medyar My Account language.
- * Tokens come from dr-plus (:root). Keep IDs/classnames for JS compatibility.
+ * Medyar wallet skin — matches homepage design language.
+ * Tokens from :root (dr-plus). Keep Sheyda classnames for JS.
  */
 
 .sheyda_wallet_wrap {
     --mtw-primary: var(--primary-100, #0272b1);
-    --mtw-primary-soft: var(--primary-100-20, rgba(2, 114, 177, 0.14));
-    --mtw-primary-hover: var(--primary-200, #025a8c);
+    --mtw-primary-soft: var(--primary-100-20, #0272b133);
+    --mtw-primary-hover: var(--primary-200, #0f3e4f);
     --mtw-secondary: var(--secondary-100, #114b5f);
     --mtw-surface: var(--general-bg, #fff);
     --mtw-canvas: var(--gray-100, #f7f7f7);
-    --mtw-border: var(--gray-200, #e7e7e7);
-    --mtw-muted: var(--text-200, #a7a7a7);
+    --mtw-border: var(--gray-200, #e6e6e6);
+    --mtw-muted: var(--text-200, #a6a6a6);
     --mtw-text: var(--text-main, #383838);
     --mtw-heading: var(--heading-200, #181616);
     --mtw-danger: var(--red, #d60043);
     --mtw-warning: var(--yellow, #ffbd12);
-    --mtw-radius: 10px;
-    --mtw-radius-lg: 12px;
-    --mtw-radius-sm: 8px;
-    --mtw-font: var(--main-font, inherit);
-    --mtw-display: var(--main-font, inherit);
+    --mtw-input: var(--input-bg, #f5f6f7);
+    --mtw-r-sm: 8px;
+    --mtw-r: 16px;
+    --mtw-r-lg: 24px;
+    --mtw-ease: 0.18s ease;
+    --mtw-font: var(--main-font, IRANYekanXFANum, sans-serif);
     font-family: var(--mtw-font);
     color: var(--mtw-text);
     display: flex;
@@ -29,12 +30,16 @@
     width: 100%;
 }
 
-@keyframes mtwSkinFade {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+    .sheyda_wallet_wrap *,
+    .sheyda_wallet_wrap *::before,
+    .sheyda_wallet_wrap *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
-/* ---------- Header / nav (Sheyda pill bar, full width) ---------- */
+/* ---------- Header / nav ---------- */
 .sheyda_wallet_head {
     display: flex;
     flex-direction: column;
@@ -47,11 +52,9 @@
 
 .sheyda_wallet_title {
     margin: 0;
-    font-family: var(--mtw-display);
     font-size: 1.25rem;
     font-weight: 800;
     color: var(--mtw-heading);
-    letter-spacing: -0.01em;
 }
 
 .sheyda_wallet_nav_items {
@@ -64,9 +67,10 @@
     padding: 6px !important;
     margin: 0;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     background: var(--mtw-canvas) !important;
     border: 1px solid var(--mtw-border) !important;
-    border-radius: var(--mtw-radius-lg) !important;
+    border-radius: var(--mtw-r) !important;
     box-shadow: none !important;
     scrollbar-width: thin;
 }
@@ -77,10 +81,11 @@
     align-items: center;
     justify-content: center;
     min-width: 0;
-    padding: 11px 10px;
+    min-height: 44px;
+    padding: 10px 12px;
     margin: 0;
     border: 0;
-    border-radius: var(--mtw-radius-sm) !important;
+    border-radius: var(--mtw-r-sm) !important;
     background: transparent !important;
     color: var(--mtw-text);
     font-size: 0.8125rem;
@@ -89,11 +94,11 @@
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition: background var(--mtw-ease), color var(--mtw-ease);
 }
 
 .sheyda_wallet_nav_item:hover {
-    background: color-mix(in srgb, var(--mtw-primary) 10%, transparent) !important;
+    background: var(--mtw-primary-soft) !important;
     color: var(--mtw-secondary) !important;
 }
 
@@ -102,11 +107,15 @@
     color: #fff !important;
 }
 
+.sheyda_wallet_nav_item:focus-visible {
+    outline: 2px solid var(--mtw-primary);
+    outline-offset: 2px;
+}
+
 @media (max-width: 680px) {
     .sheyda_wallet_nav_item {
         flex: 0 0 auto;
         padding-inline: 14px;
-        font-size: 0.8125rem;
     }
 }
 
@@ -121,20 +130,18 @@
     gap: 18px;
     width: 100%;
     margin-top: 0 !important;
-    padding: 22px !important;
+    padding: 20px !important;
     border: 1px solid var(--mtw-border) !important;
-    border-radius: var(--mtw-radius-lg) !important;
+    border-radius: var(--mtw-r-lg) !important;
     background: var(--mtw-surface) !important;
     box-shadow: none !important;
     box-sizing: border-box;
-    animation: mtwSkinFade 0.28s ease;
 }
 
 .sheyda_wallet_section-title-wrap {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 2px;
+    gap: 12px;
 }
 
 .sheyda_wallet_section-title-wrap > i,
@@ -142,9 +149,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     background: var(--mtw-primary-soft);
     color: var(--mtw-primary);
     font-size: 1rem;
@@ -172,18 +179,17 @@
 .sheyda_wallet_withdrawal-financial-error {
     margin: 0;
     padding: 14px 16px;
-    border-radius: var(--mtw-radius-sm);
+    border-radius: var(--mtw-r);
     border: 1px solid color-mix(in srgb, var(--mtw-warning) 35%, var(--mtw-border));
     background: color-mix(in srgb, var(--mtw-warning) 12%, var(--mtw-surface));
     color: var(--mtw-heading);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     line-height: 1.7;
 }
 
 .sheyda_wallet_withdrawal-financial-error a {
     color: var(--mtw-primary);
     font-weight: 700;
-    text-decoration: underline;
 }
 
 /* ---------- Dashboard ---------- */
@@ -202,59 +208,39 @@
 @media (min-width: 860px) {
     .sheyda_wallet_dashboard-info,
     .mtw-dash__hero-row {
-        grid-template-columns: 1.15fr 1fr;
+        grid-template-columns: 1.2fr 1fr;
         align-items: stretch;
     }
 }
 
 .sheyda_wallet_dashboard-info-inner,
 .mtw-dash__balance {
-    position: relative;
     display: flex !important;
     flex-direction: row !important;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    min-height: 148px;
-    padding: 22px !important;
-    border-radius: var(--mtw-radius-lg) !important;
+    min-height: 140px;
+    padding: 24px !important;
+    border-radius: var(--mtw-r-lg) !important;
     border: 0 !important;
-    background:
-        linear-gradient(135deg,
-            color-mix(in srgb, var(--mtw-primary) 34%, var(--mtw-secondary)) 0%,
-            var(--mtw-secondary) 58%,
-            #0d3a4a 100%) !important;
+    background: var(--mtw-primary) !important;
     color: #fff;
-    overflow: hidden;
-}
-
-.mtw-dash__balance::after {
-    content: '';
-    position: absolute;
-    inset: auto -20% -45% auto;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    pointer-events: none;
 }
 
 .mtw-dash__balance-copy {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    position: relative;
-    z-index: 1;
 }
 
 .sheyda_wallet_dashboard-balance-label {
     font-size: 0.8125rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(255, 255, 255, 0.82);
 }
 
 .sheyda_wallet_dashboard-balance-value {
-    font-family: inherit;
     font-size: clamp(1.35rem, 2.4vw, 1.75rem);
     font-weight: 800;
     color: #fff;
@@ -263,14 +249,12 @@
 
 .mtw-dash__balance-icon,
 .sheyda_wallet_dashboard-info-inner > i {
-    position: relative;
-    z-index: 1;
     width: 48px !important;
     height: 48px !important;
-    border-radius: 14px !important;
-    background: rgba(255, 255, 255, 0.14) !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.16) !important;
     color: #fff !important;
-    font-size: 1.25rem !important;
+    font-size: 1.2rem !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
@@ -303,19 +287,16 @@
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: flex-start !important;
     gap: 12px !important;
     min-height: 68px;
     padding: 14px 16px !important;
-    border-radius: var(--mtw-radius) !important;
+    border-radius: var(--mtw-r) !important;
     border: 1px solid var(--mtw-border) !important;
     background: var(--mtw-surface) !important;
     color: var(--mtw-heading) !important;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 0.875rem;
     box-shadow: none !important;
-    transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+    transition: border-color var(--mtw-ease), background var(--mtw-ease);
 }
 
 .mtw-dash__action-label {
@@ -341,7 +322,7 @@
 .sheyda_wallet_dashboard-quick-access-btn i {
     width: 40px;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -358,9 +339,8 @@
 
 .sheyda_wallet_dashboard-quick-access-btn:hover,
 .mtw-dash__action:hover {
-    border-color: color-mix(in srgb, var(--mtw-primary) 45%, var(--mtw-border)) !important;
-    background: color-mix(in srgb, var(--mtw-primary) 5%, var(--mtw-surface)) !important;
-    transform: translateY(-1px);
+    border-color: var(--mtw-primary) !important;
+    background: color-mix(in srgb, var(--mtw-primary) 4%, var(--mtw-surface)) !important;
 }
 
 .sheyda_wallet_dashboard-transactions-list,
@@ -369,7 +349,6 @@
     flex-direction: column;
     gap: 12px;
     width: 100%;
-    margin-top: 0;
 }
 
 .sheyda_wallet_dashboard-transactions-head {
@@ -393,10 +372,11 @@
     font-size: 0.8125rem;
     font-weight: 700;
     text-decoration: none;
+    transition: color var(--mtw-ease);
 }
 
 .sheyda_wallet_dashboard-all-transactions-link:hover {
-    color: var(--mtw-primary-hover);
+    color: var(--mtw-secondary);
 }
 
 .mtw-dash__tx-list,
@@ -413,21 +393,26 @@
     gap: 10px 14px;
     align-items: center;
     padding: 14px 16px;
-    border-radius: var(--mtw-radius);
+    border-radius: var(--mtw-r);
     border: 1px solid var(--mtw-border);
     background: var(--mtw-surface);
+    transition: border-color var(--mtw-ease);
+}
+
+.mtw-dash__tx.sheyda_wallet_transaction:hover {
+    border-color: color-mix(in srgb, var(--mtw-primary) 35%, var(--mtw-border));
 }
 
 .mtw-dash__tx-kind {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
+    border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 800;
-    background: color-mix(in srgb, var(--mtw-primary) 12%, #fff);
+    background: var(--mtw-primary-soft);
     color: var(--mtw-primary);
 }
 
@@ -452,7 +437,7 @@
 }
 
 .mtw-dash__tx-amount .sheyda_wallet_transaction-item-value {
-    color: var(--mtw-secondary);
+    color: var(--mtw-heading);
     font-size: 0.9375rem;
 }
 
@@ -467,9 +452,9 @@
 }
 
 .mtw-dash__empty {
-    padding: 24px 12px !important;
+    padding: 28px 16px !important;
     border: 1px dashed var(--mtw-border);
-    border-radius: var(--mtw-radius);
+    border-radius: var(--mtw-r);
     background: var(--mtw-canvas);
 }
 
@@ -483,12 +468,12 @@
     }
     .mtw-dash__tx-kind { grid-area: kind; }
     .mtw-dash__tx-main { grid-area: main; }
-    .mtw-dash__tx-amount { grid-area: amount; text-align: left; }
+    .mtw-dash__tx-amount { grid-area: amount; }
     .mtw-dash__tx-date { grid-area: date; }
     .mtw-dash__tx-id { grid-area: id; }
 }
 
-/* ---------- Transactions / withdrawals lists ---------- */
+/* ---------- Lists ---------- */
 .sheyda_wallet_transactions-items,
 .sheyda_wallet_withdrawals-items {
     display: flex;
@@ -508,15 +493,15 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px 16px;
     padding: 16px;
-    border-radius: var(--mtw-radius);
+    border-radius: var(--mtw-r);
     border: 1px solid var(--mtw-border);
     background: var(--mtw-canvas);
-    transition: border-color 0.2s ease, background 0.2s ease;
+    transition: border-color var(--mtw-ease), background var(--mtw-ease);
 }
 
 .sheyda_wallet_transaction:hover,
 .sheyda_wallet_withdrawal:hover {
-    border-color: color-mix(in srgb, var(--mtw-primary) 28%, var(--mtw-border));
+    border-color: color-mix(in srgb, var(--mtw-primary) 30%, var(--mtw-border));
     background: var(--mtw-surface);
 }
 
@@ -557,7 +542,7 @@
     grid-column: 1 / -1;
     margin: 0;
     padding-top: 8px;
-    border-top: 1px dashed var(--mtw-border);
+    border-top: 1px solid var(--mtw-border);
     color: var(--mtw-text);
     font-size: 0.8125rem;
     line-height: 1.7;
@@ -580,12 +565,12 @@
 
 .sheyda_wallet_empty-section i,
 .sheyda_wallet_empty-section-icon {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     color: var(--mtw-primary);
     opacity: 0.85;
 }
 
-/* ---------- Forms / topup / withdraw ---------- */
+/* ---------- Forms ---------- */
 .sheyda_wallet_topup-form,
 .sheyda_wallet_withdrawal-section {
     max-width: 720px;
@@ -596,9 +581,9 @@
     flex-direction: column;
     gap: 8px;
     padding: 14px 16px;
-    border-radius: var(--mtw-radius);
-    background: color-mix(in srgb, var(--mtw-primary) 6%, var(--mtw-canvas));
-    border: 1px solid color-mix(in srgb, var(--mtw-primary) 16%, var(--mtw-border));
+    border-radius: var(--mtw-r);
+    background: var(--mtw-canvas);
+    border: 1px solid var(--mtw-border);
 }
 
 .sheyda_wallet_withdrawal-notes .sheyda_wallet_withdrawal-note {
@@ -632,24 +617,25 @@
 .sheyda_wallet_wrap .sheyda-wallet-price-input,
 .sheyda_wallet_wrap input[type="text"],
 .sheyda_wallet_wrap input[type="number"] {
-    min-height: 46px;
+    min-height: 52px;
     border: 1px solid var(--mtw-border) !important;
-    border-radius: 8px !important;
-    background: var(--input-bg, #f5f6f7) !important;
+    border-radius: var(--mtw-r) !important;
+    background: var(--mtw-input) !important;
     color: var(--mtw-text) !important;
     box-shadow: none !important;
     font-family: inherit;
-    padding-inline: 12px;
+    padding-inline: 14px;
+    transition: border-color var(--mtw-ease), background var(--mtw-ease);
 }
 
 .sheyda_wallet_wrap .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 44px;
-    padding-inline: 12px;
+    line-height: 50px;
+    padding-inline: 14px;
     color: var(--mtw-text);
 }
 
 .sheyda_wallet_wrap .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 44px;
+    height: 50px;
 }
 
 .sheyda_wallet_wrap .sheyda-wallet-price-input:focus,
@@ -658,13 +644,13 @@
 .sheyda_wallet_wrap select:focus {
     outline: none;
     border-color: var(--mtw-primary) !important;
-    box-shadow: none !important;
     background: #fff !important;
+    box-shadow: none !important;
 }
 
 .sheyda_wallet_topup-predefined-amounts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
     gap: 8px;
 }
 
@@ -673,14 +659,14 @@
     border: 1px solid var(--mtw-border);
     background: var(--mtw-canvas);
     color: var(--mtw-heading);
-    border-radius: 8px;
-    min-height: 44px;
+    border-radius: var(--mtw-r);
+    min-height: 48px;
     padding: 10px 12px;
     font-size: 0.8125rem;
     font-weight: 700;
     font-family: inherit;
     cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition: border-color var(--mtw-ease), background var(--mtw-ease), color var(--mtw-ease);
 }
 
 .sheyda_wallet_topup-predefined-amount-btn:hover,
@@ -688,7 +674,6 @@
     border-color: var(--mtw-primary);
     background: var(--mtw-primary-soft);
     color: var(--mtw-secondary);
-    transform: translateY(-1px);
 }
 
 .sheyda_wallet_topup-amount-field-separator-wrap {
@@ -696,7 +681,7 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin: 6px 0;
+    margin: 4px 0;
 }
 
 .sheyda_wallet_topup-amount-field-separator-wrap::before,
@@ -722,19 +707,19 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 46px;
-    padding: 10px 18px !important;
+    min-height: 52px;
+    padding: 12px 20px !important;
     border: 0 !important;
-    border-radius: 8px !important;
+    border-radius: var(--mtw-r) !important;
     background: var(--mtw-primary) !important;
-    color: var(--general-text, #fff) !important;
+    color: #fff !important;
     font-size: 0.875rem !important;
     font-weight: 700 !important;
     font-family: inherit !important;
     cursor: pointer;
-    transition: background 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
-    width: fit-content;
-    max-width: 100%;
+    transition: background var(--mtw-ease);
+    width: 100%;
+    max-width: 360px;
     box-shadow: none !important;
     position: relative;
 }
@@ -743,7 +728,13 @@
 .sheyda_wallet_topup-submit:hover,
 .sheyda_wallet_withdrawal-submit:hover {
     background: var(--mtw-primary-hover) !important;
-    transform: translateY(-1px);
+}
+
+.sheyda_wallet_button:focus-visible,
+.sheyda_wallet_topup-submit:focus-visible,
+.sheyda_wallet_withdrawal-submit:focus-visible {
+    outline: 2px solid var(--mtw-primary);
+    outline-offset: 2px;
 }
 
 .sheyda_wallet_button.loading,
@@ -771,7 +762,7 @@
 .sheyda_wallet_wrap .note-error {
     margin-top: 8px;
     padding: 12px 14px;
-    border-radius: var(--mtw-radius-sm);
+    border-radius: var(--mtw-r-sm);
     background: color-mix(in srgb, var(--mtw-danger) 8%, var(--mtw-surface));
     border: 1px solid color-mix(in srgb, var(--mtw-danger) 25%, var(--mtw-border));
     color: var(--mtw-danger);
@@ -788,8 +779,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
-    padding: 14px;
-    border-radius: var(--mtw-radius);
+    padding: 16px;
+    border-radius: var(--mtw-r);
     background: var(--mtw-canvas);
     border: 1px solid var(--mtw-border);
 }
@@ -808,6 +799,15 @@
     color: var(--mtw-heading);
 }
 
+.sheyda_wallet_button.button-action,
+.sheyda_wallet_button.button-small {
+    width: auto;
+    min-height: 40px;
+    max-width: none;
+    padding: 8px 14px !important;
+    font-size: 0.8125rem !important;
+}
+
 /* ---------- Pagination ---------- */
 .sheyda_wallet_withdrawals-list,
 .sheyda_wallet_transactions-list {
@@ -820,6 +820,7 @@
 .sheyda_wallet_pagination {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 8px;
     margin-top: 20px;
 }
@@ -829,10 +830,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 34px;
-    height: 34px;
-    padding: 0 8px;
-    border-radius: 8px;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: var(--mtw-r);
     border: 1px solid var(--mtw-border);
     background: var(--mtw-surface);
     color: var(--mtw-text);
@@ -840,6 +841,7 @@
     font-size: 0.8125rem;
     font-weight: 700;
     box-shadow: none;
+    transition: background var(--mtw-ease), border-color var(--mtw-ease), color var(--mtw-ease);
 }
 
 .sheyda_wallet_pagination .current,
@@ -849,7 +851,6 @@
     color: #fff;
 }
 
-/* Soften leftover Sheyda glow */
 .woocommerce-MyAccount-content .sheyda_wallet_wrap [style*="box-shadow"],
 .woocommerce-MyAccount-content .sheyda_wallet_nav_items,
 .woocommerce-MyAccount-content .sheyda_wallet_section {
