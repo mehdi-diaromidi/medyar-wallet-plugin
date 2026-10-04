@@ -35,9 +35,15 @@ class Medyar_Bank_Cards
         );
     }
 
-    public static function enqueue_assets()
+    public static function enqueue_logo_styles()
     {
         self::register_assets();
+        wp_enqueue_style('medyar-bank-cards');
+    }
+
+    public static function enqueue_assets()
+    {
+        self::enqueue_logo_styles();
         $mtw_css = MTW_PATH . 'assets/frontend/css/mtw-bank-cards.css';
         wp_register_style(
             'mtw-bank-cards',
@@ -45,7 +51,6 @@ class Medyar_Bank_Cards
             ['medyar-bank-cards'],
             (string) (@filemtime($mtw_css) ?: MTW_VERSION)
         );
-        wp_enqueue_style('medyar-bank-cards');
         wp_enqueue_style('mtw-bank-cards');
         wp_enqueue_script('medyar-bank-cards');
         wp_localize_script('medyar-bank-cards', 'medyarBankCards', [

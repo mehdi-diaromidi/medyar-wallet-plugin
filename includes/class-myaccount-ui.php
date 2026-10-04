@@ -150,7 +150,7 @@ class MTW_MyAccount_UI
         wp_enqueue_script('mtw-wallet', MTW_URL . 'assets/frontend/js/sheyda-wallet.js', ['jquery', 'mtw-wallet-utils'], $ver_base ?: MTW_VERSION, true);
 
         $section = self::get_active_section();
-        if (in_array($section, ['financial', 'withdrawal', 'topup'], true)) {
+        if (in_array($section, ['financial', 'withdrawal'], true)) {
             wp_enqueue_style(
                 'mtw-wallet-select2',
                 MTW_URL . 'assets/frontend/libs/select2/select2.min.css',
@@ -167,10 +167,12 @@ class MTW_MyAccount_UI
         }
         if ($section === 'financial' && class_exists('Medyar_Bank_Cards')) {
             Medyar_Bank_Cards::enqueue_assets();
+        } elseif (in_array($section, ['topup', 'withdrawal'], true) && class_exists('Medyar_Bank_Cards')) {
+            Medyar_Bank_Cards::enqueue_logo_styles();
         }
 
         $deps = ['jquery', 'mtw-wallet'];
-        if (in_array($section, ['financial', 'withdrawal', 'topup'], true)) {
+        if (in_array($section, ['financial', 'withdrawal'], true)) {
             $deps[] = 'mtw-wallet-select2';
         }
 

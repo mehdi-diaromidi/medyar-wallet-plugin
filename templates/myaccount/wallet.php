@@ -9,8 +9,7 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="<?php echo esc_attr($prefix); ?>wrap">
     <div class="<?php echo esc_attr($prefix); ?>head">
-        <h2 class="<?php echo esc_attr($prefix); ?>title">کیف پول</h2>
-        <div class="<?php echo esc_attr($prefix); ?>nav_items">
+        <div class="<?php echo esc_attr($prefix); ?>nav_items" role="navigation" aria-label="بخش‌های کیف پول">
             <?php foreach ($sections as $section => $label) : ?>
                 <a href="<?php echo esc_url(add_query_arg(['section' => $section], $base_url)); ?>"
                    class="<?php echo esc_attr($prefix); ?>nav_item<?php echo $active_section === $section ? ' active' : ''; ?>">

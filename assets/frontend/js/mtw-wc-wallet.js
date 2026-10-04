@@ -95,6 +95,150 @@
 		return i18n('networkError', 'خطا در ارتباط با سرور.');
 	}
 
+	function closeMtwSelects(except) {
+		document.querySelectorAll('.mtw-select__menu.is-open').forEach(function (menu) {
+			if (except && menu === except) {
+				return;
+			}
+			menu.classList.remove('is-open');
+			var wrap = menu.closest('.mtw-field-control--select');
+			if (wrap) {
+				wrap.classList.remove('is-open');
+			}
+			var trigger = menu.parentElement && menu.parentElement.querySelector('.mtw-select__trigger');
+			if (trigger) {
+				trigger.setAttribute('aria-expanded', 'false');
+			}
+		});
+	}
+
+	function bankLogoHtml(bank) {
+		var slug = String(bank || '').trim() || 'bank-logo-default-ws';
+		return '<span class="mtw-select__logo" aria-hidden="true"><span class="bank-logo-img ' + slug + '"></span></span>';
+	}
+
+	function initMtwSelects() {
+		document.querySelectorAll('select[data-mtw-select]').forEach(function (native) {
+			if (native.dataset.mtwEnhanced === '1') {
+				return;
+			}
+			native.dataset.mtwEnhanced = '1';
+
+			var control = native.closest('.mtw-field-control--select');
+			if (!control) {
+				return;
+			}
+
+			var shell = document.createElement('div');
+			shell.className = 'mtw-select';
+
+			var trigger = document.createElement('button');
+			trigger.type = 'button';
+			trigger.className = 'mtw-select__trigger';
+			trigger.setAttribute('aria-haspopup', 'listbox');
+			trigger.setAttribute('aria-expanded', 'false');
+
+			var menu = document.createElement('ul');
+			menu.className = 'mtw-select__menu';
+			menu.setAttribute('role', 'listbox');
+
+			function optionBank(opt) {
+				return (opt && opt.getAttribute('data-bank')) || 'bank-logo-default-ws';
+			}
+
+			function syncLabel() {
+				var selected = native.options[native.selectedIndex];
+				var text = selected ? selected.textContent.trim() : '';
+				var bank = selected ? optionBank(selected) : 'bank-logo-default-ws';
+				trigger.innerHTML = bankLogoHtml(bank) + '<span class="mtw-select__label"></span>';
+				trigger.querySelector('.mtw-select__label').textContent = text || 'انتخاب کنید';
+				trigger.classList.toggle('is-placeholder', !native.value);
+				control.classList.toggle('is-filled', !!native.value);
+			}
+
+			function buildOptions() {
+				menu.innerHTML = '';
+				Array.prototype.forEach.call(native.options, function (opt, index) {
+					var li = document.createElement('li');
+					li.className = 'mtw-select__option';
+					li.setAttribute('role', 'option');
+					li.dataset.value = opt.value;
+					li.dataset.index = String(index);
+					li.innerHTML = bankLogoHtml(optionBank(opt)) + '<span class="mtw-select__label"></span>';
+					li.querySelector('.mtw-select__label').textContent = opt.textContent.trim();
+					if (opt.disabled || opt.value === '') {
+						li.classList.add('is-disabled');
+					}
+					if (opt.selected) {
+						li.classList.add('is-selected');
+						li.setAttribute('aria-selected', 'true');
+					}
+					li.addEventListener('click', function (e) {
+						e.preventDefault();
+						e.stopPropagation();
+						if (li.classList.contains('is-disabled')) {
+							return;
+						}
+						native.selectedIndex = index;
+						native.dispatchEvent(new Event('change', { bubbles: true }));
+						syncLabel();
+						closeMtwSelects();
+					});
+					menu.appendChild(li);
+				});
+			}
+
+			function openMenu() {
+				closeMtwSelects(menu);
+				buildOptions();
+				menu.classList.add('is-open');
+				control.classList.add('is-open');
+				trigger.setAttribute('aria-expanded', 'true');
+			}
+
+			function toggleMenu(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				if (menu.classList.contains('is-open')) {
+					closeMtwSelects();
+				} else {
+					openMenu();
+				}
+			}
+
+			trigger.addEventListener('click', toggleMenu);
+			control.addEventListener('click', function (e) {
+				if (e.target.closest('.mtw-select__menu')) {
+					return;
+				}
+				if (e.target.closest('.mtw-select__trigger')) {
+					return;
+				}
+				toggleMenu(e);
+			});
+
+			native.addEventListener('change', syncLabel);
+
+			shell.appendChild(trigger);
+			native.insertAdjacentElement('afterend', shell);
+			control.appendChild(menu);
+			buildOptions();
+			syncLabel();
+		});
+
+		if (!document.documentElement.dataset.mtwSelectBound) {
+			document.documentElement.dataset.mtwSelectBound = '1';
+			document.addEventListener('click', function () {
+				closeMtwSelects();
+			});
+			document.addEventListener('keydown', function (e) {
+				if (e.key === 'Escape') {
+					closeMtwSelects();
+				}
+			});
+		}
+	}
+
 	$(document).ready(function () {
 		var actions = cfg().actions || {};
 		var busy = {
@@ -103,13 +247,58 @@
 			financial: false
 		};
 
+		function formatTopupAmount(amount) {
+			var n = Math.floor(Number(amount) || 0);
+			if (!n) {
+				return '—';
+			}
+			try {
+				return n.toLocaleString('fa-IR') + ' تومان';
+			} catch (err) {
+				return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';
+			}
+		}
+
+		function syncTopupUi() {
+			var $field = $('#sheyda_wallet_topup-amount-field');
+			if (!$field.length) {
+				return;
+			}
+
+			var amount = convertAmount($field.val());
+			var $summary = $('#mtwTopupSummaryAmount');
+			if ($summary.length) {
+				$summary.text(formatTopupAmount(amount));
+			}
+
+			$('.sheyda_wallet_topup-predefined-amount-btn').each(function () {
+				var chipAmount = convertAmount($(this).attr('data-amount'));
+				$(this).toggleClass('is-active', chipAmount > 0 && chipAmount === amount);
+			});
+
+			var $btn = $('#sheyda_wallet_topup-submit');
+			if ($btn.length && !busy.topup) {
+				var $text = $btn.find('.button-text');
+				if (amount >= 1000) {
+					$text.text('پرداخت ' + formatTopupAmount(amount));
+					$btn.removeClass('is-muted');
+				} else {
+					$text.text('ادامه و پرداخت');
+					$btn.addClass('is-muted');
+				}
+			}
+		}
+
 		$('.sheyda_wallet_topup-predefined-amount-btn').on('click', function () {
 			$('#sheyda_wallet_topup-amount-field').val($(this).attr('data-amount')).trigger('input');
 		});
 
 		$('#sheyda_wallet_topup-amount-field').on('change input', function () {
 			hideBox($('.sheyda_wallet_topup-errors'));
+			syncTopupUi();
 		});
+
+		syncTopupUi();
 
 		$('#sheyda_wallet_topup-submit').on('click', function (e) {
 			e.preventDefault();
@@ -147,12 +336,14 @@
 					showBox($errors, errorMessage(res), true);
 					busy.topup = false;
 					lockButton($btn, false);
+					syncTopupUi();
 				})
 				.fail(function (xhr) {
 					var res = xhr.responseJSON || null;
 					showBox($errors, errorMessage(res, xhr), true);
 					busy.topup = false;
 					lockButton($btn, false);
+					syncTopupUi();
 				});
 		});
 
@@ -194,8 +385,10 @@
 			});
 		});
 
+		initMtwSelects();
+
 		if ($.fn.select2) {
-			$('#sheyda_wallet_withdrawal-destination-field, #mtw_topup_card, .sheyda_wallet_financial-account_type').select2({
+			$('#sheyda_wallet_withdrawal-destination-field, .sheyda_wallet_financial-account_type').select2({
 				width: '100%',
 				minimumResultsForSearch: Infinity
 			});
